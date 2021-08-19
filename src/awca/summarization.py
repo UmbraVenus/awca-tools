@@ -23,7 +23,7 @@ def preprocess(texts):
         tokens.append(tokenized_text)
     return tokens
 
-def get_summarization(tokenized_texts, min_length, max_length):
+def get_summarization(tokenized_texts, min_length=10, max_length=45):
     outputs = ""
     for text in tokenized_texts:
         summary_ids = model.generate(text,
@@ -35,3 +35,7 @@ def get_summarization(tokenized_texts, min_length, max_length):
         output = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
         outputs += output
     return outputs
+
+def summarize(texts, min_length=10, max_length=45):
+    tokenized = preprocess(texts)
+    return get_summarization(tokenized, min_length, max_length)
